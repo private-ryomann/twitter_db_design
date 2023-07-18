@@ -55,11 +55,19 @@
 
 [Follows]
     *id {label: "bigint, not null"}
-    follower {label: "bigint, not null FK(Users)"}
-    followed {label: "bigint, not null FK(Users)"}
+    follower {label: "bigint, not null, FK(Users)"}
+    followed {label: "bigint, not null, FK(Users)"}
     created_at {label: "datetime, not null"}
     updated_at {label: "datetime, not null"}
 
+[Notifications]
+    *id {label: "bigint, not null"}
+    user_id {label: "bigint, not null, FK(Users)"}
+    notificated_id {label: "bigint, not null, FK(Follows, Likes)"}
+    notificated_type {label: "varchar(50), not null" }
+    is_read {label: "boolean, not null"}
+    created_at {label: "datetime, not null"}
+    updated_at {label: "datetime, not null"}
 
 
 # Cardinality    Syntax
@@ -78,3 +86,6 @@ Tweets 1--* `Tweets`
 Tweets 1--* `Retweets`
 Tweets 1--* `Likes`
 Tweets 1--* `BookMarks`
+Users 1--* `Notifications`
+Likes 1--1 `Notifications`
+Follows 1--1 `Notifications`
