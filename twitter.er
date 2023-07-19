@@ -60,22 +60,18 @@
     created_at {label: "datetime, not null"}
     updated_at {label: "datetime, not null"}
 
+
+# notificated_idにはlike_idとfollow_idが入る
+
 [Notifications]
     *id {label: "bigint, not null"}
     user_id {label: "bigint, not null, FK(Users)"}
+    notificated_id {label: "bigint, not null"}
+    notificated_type {label: "varchar(50), not null" }
     is_read {label: "boolean, not null"}
     created_at {label: "datetime, not null"}
     updated_at {label: "datetime, not null"}
 
-[Like_Notifications]
-    *id {label: "bigint, not null"}
-    like_id {label: "bigint, not null, FK(Likes)"}
-    notifications {label: "bigint, not null, FK(Notifications)"}
-
-[Follow_Notifications]
-    *id {label: "bigint, not null"}
-    follow_id {label: "bigint, not null, FK(Follows)"}
-    notification_id {label: "bigint, not null, FK(Notifications)"}
 
 # Cardinality    Syntax
 # 0 or 1         ?
@@ -94,7 +90,5 @@ Tweets 1--* `Retweets`
 Tweets 1--* `Likes`
 Tweets 1--* `BookMarks`
 Users 1--* `Notifications`
-Likes 1--1 `Like_Notifications`
-Follows 1--1 `Follow_Notifications`
-Like_Notifications 1--1 `Notifications`
-Follow_Notifications 1--1 `Notifications`
+Likes 1--1 `Notifications`
+Follows 1--1 `Notifications`
